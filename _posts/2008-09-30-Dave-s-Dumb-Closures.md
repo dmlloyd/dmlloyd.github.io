@@ -40,41 +40,41 @@ Since many people are visual in nature, allow me to demonstrate a possible synta
 
 This first example would be a typical ARM (automatic resource management) scenario. Imagine a Lock interface with a method like this:
 
-    public interface Lock {  
-    void hold() for theBlock();  
-    }
+        public interface Lock {  
+            void hold() for theBlock();  
+        }
 
 Notice the use of the "for" keyword. Yeah, I stole that idea from BGGA. Anyway, here's how you'd implement it:
 
-    public class MyLock implements Lock {  
-    // ...stuff...  
-    public void hold() for theBlock() {  
-    ...acquire the lock using ninja CAS techniques...  
-    try {  
-    theBlock();  
-    } finally {  
-    ...release the lock unconditionally...  
-    }  
-    }  
-    }
+        public class MyLock implements Lock {  
+            // ...stuff...  
+            public void hold() for theBlock() {  
+                ...acquire the lock using ninja CAS techniques...  
+                try {  
+                    theBlock();  
+                } finally {  
+                    ...release the lock unconditionally...  
+                }  
+            }  
+        }
 
 Finally you'd use it like this:
 
-    private final Lock lock = new MyLock();  
-    public void doStuff() throws TheException {  
-    // we need to access the shared resource!  
-    lock.hold() for() {  
-    // ok, let's do some test  
-    if (someConditionIsWrong) {  
-    throw new TheException("Failure...");  
-    }  
-    }
+        private final Lock lock = new MyLock();  
+        public void doStuff() throws TheException {  
+            // we need to access the shared resource!  
+            lock.hold() for() {  
+                // ok, let's do some test  
+                if (someConditionIsWrong) {  
+                    throw new TheException("Failure...");  
+                }  
+            }
 
 Or we could ditch the "for" on usage if there's no parameters:
 
-    lock.hold() {  
-    // do stuff  
-    }
+        lock.hold() {  
+            // do stuff  
+        }
 
 Niiiiice.
 
@@ -94,89 +94,89 @@ Finally, the Big Exception Conundrum. Due to the fact that the closure is really
 
 The oft-wished-for Map pairs iteration - interface:
 
-    interface Map<K, V> {  
-    // ...  
-    void iterate() for block(K key, V value);  
-    // ...  
-    }
+        interface Map<K, V> {  
+            // ...  
+            void iterate() for block(K key, V value);  
+            // ...  
+        }
 
 Implementation:
 
-    public class FooMap<K, V> implements Map<K, V> {  
-    // ...  
-    // cheapo implementation just uses good old entrySet()  
-    public void iterate() for block(K key, V value) {  
-    Set<Entry<K, V>> entrySet = entrySet();  
-    for (Entry<K, V> e : entrySet) {  
-    block(e.getKey(), e.getValue());  
-    }  
-    }  
-    // ...  
-    }
+        public class FooMap<K, V> implements Map<K, V> {  
+            // ...  
+            // cheapo implementation just uses good old entrySet()  
+            public void iterate() for block(K key, V value) {  
+                Set<Entry<K, V>> entrySet = entrySet();  
+                for (Entry<K, V> e : entrySet) {  
+                    block(e.getKey(), e.getValue());  
+                }  
+            }  
+            // ...  
+        }
 
 Usage:
 
-    Map<String, Thing> things = new FooMap<String, Thing>();  
-    // ...later...  
-    things.iterate() for (String key, Thing value) {  
-    System.out.println("The string " + key + " is for the thing " + value);  
-    }
+        Map<String, Thing> things = new FooMap<String, Thing>();  
+        // ...later...  
+        things.iterate() for (String key, Thing value) {  
+            System.out.println("The string " + key + " is for the thing " + value);  
+        }
 
 Think how difficult it was for the BGGA crowd to get control structures in there! And they're still pretty ugly if you ask me (at least in v0.5 of the draft):
 
-    // weird BGGA stuff...  
-    <R, T extends java.io.Closeable, throws E>  
-    R with(T t, {T=>R throws E} block) throws E {  
-    try {  
-    return block.invoke(t);  
-    } finally {  
-    try { t.close(); } catch (IOException ex) {}  
-    }  
-    }
+        // weird BGGA stuff...  
+        <R, T extends java.io.Closeable, throws E>  
+        R with(T t, {T=>R throws E} block) throws E {  
+            try {  
+                return block.invoke(t);  
+            } finally {  
+                try { t.close(); } catch (IOException ex) {}  
+            }  
+        }
 
 This same safe-close control structure would be done like this (notice how absolutely no type parameters are needed):
 
-    public static void with(Closeable resource) for block() {  
-    try {  
-    block();  
-    } finally {  
-    try {  
-    resource.close();  
-    } catch (Throwable t) {  
-    // log it, of course!  
-    }  
-    }  
-    }
+        public static void with(Closeable resource) for block() {  
+            try {  
+                block();  
+            } finally {  
+                try {  
+                    resource.close();  
+                } catch (Throwable t) {  
+                    // log it, of course!  
+                }  
+            }  
+        }
 
 Then the usage would be:
 
-    InputStream is;  
-    with (is = new InputStream("foo.txt")) {  
-    // read me my bytes!  
-    }
+        InputStream is;  
+        with (is = new InputStream("foo.txt")) {  
+            // read me my bytes!  
+        }
 
 Or how about slick user transaction management (usage only shown):
 
-    txn.begin() {  
-    // do some JDBC or Hibernate or something!  
-    }  
-    // or keep a threadlocal with the context and you could do:  
-    transaction() {  
-    // do some JDBC or Hibernate or something!  
-    }
+        txn.begin() {  
+            // do some JDBC or Hibernate or something!  
+        }  
+        // or keep a threadlocal with the context and you could do:  
+        transaction() {  
+            // do some JDBC or Hibernate or something!  
+        }
 
 Or a nice way to handle streaming result sets from a file or database (usage only shown):
 
-    data.fetch() for (String lastName, String firstName, BigDecimal balance) {  
-    // Take a hike, data objects.  These are all local variables!  Talk about cheap GC!  
-    System.out.println(lastName + ", " + firstName + " owes us $" + balance);  
-    }
+        data.fetch() for (String lastName, String firstName, BigDecimal balance) {  
+            // Take a hike, data objects.  These are all local variables!  Talk about cheap GC!  
+            System.out.println(lastName + ", " + firstName + " owes us $" + balance);  
+        }
 
 Privileged actions get a performance boost (no object creation, no virtual method dispatch) - and say goodbye and good riddance to PrivilegedExceptionAction:
 
-    AccessController.doPrivileged() {  
-    secretStuff.activate();  
-    }
+        AccessController.doPrivileged() {  
+            secretStuff.activate();  
+        }
 
 ####     Nuts & Bolts
 

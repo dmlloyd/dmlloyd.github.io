@@ -4,8 +4,10 @@ title: XNIO 1.0.0.CR3 Released
 categories: 
 date: 2008-07-07 18:50:00
 ---
- Well, I lied. I've found a couple more minor API issues which I've fixed for CR3 - a misspelling in a method name ("interruptible", not "interruptable"), a typo which prevented junit from being downloaded, one interface rename ("Client" becomes "ChannelSource"), and a few other minor fixes are included in this release. I think this one will become GA unless I find a glaring bug in the next week or so.  
-Once again, the release is available at the [downloads page](http://www.jboss.org/xnio/downloads/ "") of the [XNIO project website](http://www.jboss.org/xnio/ "") .  
+ Well, I lied. I've found a couple more minor API issues which I've fixed for CR3 - a misspelling in a method name ("interruptible", not "interruptable"), a typo which prevented junit from being downloaded, one interface rename ("Client" becomes "ChannelSource"), and a few other minor fixes are included in this release. I think this one will become GA unless I find a glaring bug in the next week or so.
+
+Once again, the release is available at the [downloads page](http://www.jboss.org/xnio/downloads/ "") of the [XNIO project website](http://www.jboss.org/xnio/ "") .
+
 Release Notes - XNIO - Version 1.0.0.CR3
 
 ##   Bug

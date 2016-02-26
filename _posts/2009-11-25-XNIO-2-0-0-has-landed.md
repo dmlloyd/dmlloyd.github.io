@@ -22,7 +22,8 @@ date: 2009-11-25 16:58:00
 
 * JMX management for all channels
 
-* Powerful [`IoFuture`](http://docs.jboss.org/xnio/2.0/api/index.html?org/jboss/xnio/IoFuture.html "") interface and support classes simplify asynchronous I/O operation support in XNIO as well as in your application  
+* Powerful [`IoFuture`](http://docs.jboss.org/xnio/2.0/api/index.html?org/jboss/xnio/IoFuture.html "") interface and support classes simplify asynchronous I/O operation support in XNIO as well as in your application
+
 And these new features:
 
 * SSL channel types for easy SSL support - vastly simpler than the NIO-targeted [`SSLEngine`](http://java.sun.com/javase/6/docs/api/index.html?javax/net/ssl/SSLEngine.html "") API

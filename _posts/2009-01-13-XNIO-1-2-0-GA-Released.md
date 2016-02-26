@@ -44,9 +44,12 @@ date: 2009-01-13 18:09:00
 
 ##   Links
 
-Download: [http://www.jboss.org/xnio/downloads](http://www.jboss.org/xnio/downloads "")  
-Javadoc: [http://docs.jboss.org/xnio/1.2.0.GA/api](http://docs.jboss.org/xnio/1.2.0.GA/api "")  
-Project page: [http://www.jboss.org/xnio](http://www.jboss.org/xnio "")  
+Download: [http://www.jboss.org/xnio/downloads](http://www.jboss.org/xnio/downloads "")
+
+Javadoc: [http://docs.jboss.org/xnio/1.2.0.GA/api](http://docs.jboss.org/xnio/1.2.0.GA/api "")
+
+Project page: [http://www.jboss.org/xnio](http://www.jboss.org/xnio "")
+
 Bug tracker: [https://jira.jboss.org/jira/browse/XNIO](https://jira.jboss.org/jira/browse/XNIO "")
 
 Just a reminder that the 1.2.0.GA release is **not 100% binary- and source-compatible with 1.1.x** , so if you choose to move to 1.2.0.GA, make sure you do a clean build of your project to identify any potential problems with the changes surrounding the new `IoFuture` attachment feature.

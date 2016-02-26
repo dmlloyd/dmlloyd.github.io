@@ -24,7 +24,8 @@ date: 2008-10-06 18:46:00
 
 * Inexpensive instance creation, beneficial to applications where many short-lived streams are used
 
-* Support for separate class and instance caches, if the protocol permits; useful for sending multiple messages or requests with a single stream, with separate object graphs but retaining the class cache  
+* Support for separate class and instance caches, if the protocol permits; useful for sending multiple messages or requests with a single stream, with separate object graphs but retaining the class cache
+
 The default implementation, known as "River", is also available as a separate JAR.
 
 This project does not have a home page, but the binaries have been uploaded to [repositry.jboss.org](http://repository.jboss.org/jboss/marshalling/1.0.0.Beta1/lib/ "") and the Javadocs are available online at [docs.jboss.org](http://docs.jboss.org/river/1.0.0.Beta1/api/ "") . The source code may be found in [my sandbox repository](http://anonsvn.jboss.org/repos/sandbox/david.lloyd/jboss-marshalling/trunk/ "") for now, until it gets a permanent home.

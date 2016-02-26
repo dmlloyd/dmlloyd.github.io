@@ -4,8 +4,10 @@ title: JBoss Marshalling 1.2.0 Released, Website Upgraded
 categories: 
 date: 2010-01-05 14:28:00
 ---
- Some of you may have noticed that JBoss Marshalling 1.2.0.GA has been present [in the maven repository](http://repository.jboss.org/maven2/org/jboss/marshalling/ "") for some time. Now that [the website](http://www.jboss.org/jbossmarshalling "") upgrade is complete, I'm happy to announce that it is now available from [the downloads page](http://www.jboss.org/jbossmarshalling/downloads "") as well.  
-JBoss Marshalling is a framework which wholly replaces Java Serialization with a new API and optional optimized wire format. The standard wire format can also be used as well - giving compatibility with applications using standard serialization, but without the various bugs present therein, and with a potentially significant performance advantage.  
+ Some of you may have noticed that JBoss Marshalling 1.2.0.GA has been present [in the maven repository](http://repository.jboss.org/maven2/org/jboss/marshalling/ "") for some time. Now that [the website](http://www.jboss.org/jbossmarshalling "") upgrade is complete, I'm happy to announce that it is now available from [the downloads page](http://www.jboss.org/jbossmarshalling/downloads "") as well.
+
+JBoss Marshalling is a framework which wholly replaces Java Serialization with a new API and optional optimized wire format. The standard wire format can also be used as well - giving compatibility with applications using standard serialization, but without the various bugs present therein, and with a potentially significant performance advantage.
+
 Other features that JBoss Marshalling provides which are missing from the Java Object*Stream API include:
 
 * Pluggable class resolvers, making it easy to customize classloader policy, by implementing a small interface (rather than having to subclass the `Object*Stream` classes)
