@@ -4,7 +4,7 @@ title: Circular Module Dependencies and the Real World
 categories: 
 date: 2014-02-28 14:36:42
 ---
- In a somewhat  <a title="Runtime vs. compile time cyclic dep" href="http://mail.openjdk.java.net/pipermail/jigsaw-dev/2013-September/003389.html" target="_blank">recent discussion</a> on the jigsaw\-dev mailing list, the issue of circular dependencies during compile time versus run time came up again (previously discussed <a href="http://mail.openjdk.java.net/pipermail/jigsaw-dev/2012-March/002246.html" target="_blank">way back in March 2012</a>) without apparent resolution. At run time, systems like JBoss Modules can take advantage of the JDK's lazy class loading behavior in order to lazily link modules, even circularly, as required to link module classes.  Introducing support for circular runtime dependencies was relatively simple using a multi\-phase resolution strategy. This is (uncoincidentally) very similar, in fact, to the mechanism (and reasoning behind the mechanism) of JDK class loaders themselves. However, things become uglier at compile time. The compiler must have a complete picture: any symbol referenced from any source file must be defined in either a class file on the class path or another source file, otherwise the compiler can't tell if your *Foo.Bar* is a field on class *Foo* or a nested class called *Bar* inside of *Foo* or a top\-level class *Bar* in a package named *Foo*. But what do you do when you have two modules that have requirements on one another? The current *javax.tools* API only has a notion of a single source and target, hence the March 2012 discussion. If you want to compile two interdependent modules today, you can either build them as one (which, if you're using Maven like 90% of the world, results in one JAR unless you do some trickery) or you hack  *javax.tools*  with some scheme to map the class files to their proper output directories \- in both cases building the two modules at the same time.
+In a somewhat <a title="Runtime vs. compile time cyclic dep" href="http://mail.openjdk.java.net/pipermail/jigsaw-dev/2013-September/003389.html" target="_blank">recent discussion</a> on the jigsaw\-dev mailing list, the issue of circular dependencies during compile time versus run time came up again (previously discussed <a href="http://mail.openjdk.java.net/pipermail/jigsaw-dev/2012-March/002246.html" target="_blank">way back in March 2012</a>) without apparent resolution. At run time, systems like JBoss Modules can take advantage of the JDK's lazy class loading behavior in order to lazily link modules, even circularly, as required to link module classes.  Introducing support for circular runtime dependencies was relatively simple using a multi\-phase resolution strategy. This is (uncoincidentally) very similar, in fact, to the mechanism (and reasoning behind the mechanism) of JDK class loaders themselves. However, things become uglier at compile time. The compiler must have a complete picture: any symbol referenced from any source file must be defined in either a class file on the class path or another source file, otherwise the compiler can't tell if your *Foo.Bar* is a field on class *Foo* or a nested class called *Bar* inside of *Foo* or a top\-level class *Bar* in a package named *Foo*. But what do you do when you have two modules that have requirements on one another? The current *javax.tools* API only has a notion of a single source and target, hence the March 2012 discussion. If you want to compile two interdependent modules today, you can either build them as one (which, if you're using Maven like 90% of the world, results in one JAR unless you do some trickery) or you hack  *javax.tools*  with some scheme to map the class files to their proper output directories \- in both cases building the two modules at the same time.
 
 ##  Lock 'em down
 
@@ -14,11 +14,11 @@ It has been argued on jigsaw\-dev that at compile time, your compile\-time depen
 
 In the "real world" of modular application development (presently a very sparsely\-populated world indeed), we (the <a title="wildfly.org" href="http://wildfly.org" target="_blank">WildFly</a>team) have developed and/or integrated a fairly large number of modules (from diverse origins) into the static module repository that makes up the bulk of the WildFly application server distribution. This I think gives us a unique perspective into this problem: we develop in\-house many independent frameworks, which, on occasion, are interdependent \- and I'm not just talking about taking some single large project and arbitrarily dividing it into JARs to satisfy some code size ideal.  I'm talking about truly distinct projects by truly distinct teams, with distinct goals and maybe even differing licenses. What happens is, two projects are developed independently. But it soon becomes clear that project A might see something useful in project B, and they may decide that this feature might be useful (maybe even on a purely optional basis). So they add B as an optional dependency at distribution and a required dependency at compile time.
 
-![[Module A] -> [Module B]](http://word-bits.flurg.com/images/img1.png)
+![img1](http://word-bits.flurg.com/images/img1.png)
 
 The problem occurs when project A notices something possibly useful in project B, and decides they want to leverage it. Only now, it becomes impossible: if you compile A you need B, but to get B you have to compile B which requires A.
 
-![[Module A] <-> [Module B]](http://word-bits.flurg.com/images/img2.png)
+![img2](http://word-bits.flurg.com/images/img2.png)
 
 ##   The ideological solution
 
@@ -28,7 +28,7 @@ Conventional wisdom in this case would suggest that if I have a module A which d
 
   Great! Now when B adds its dependency on to A, we can do the same thing:
 
-![img4](http://word-bits.flurg.com/images/img4-300x145.png)
+![img4](http://word-bits.flurg.com/images/img4.png)
 
   We've solved the problem elegantly, if somewhat expensively (after all, we now have four modules instead of two, and we've written new SPIs to both module A and module B to accommodate this arrangement), restoring our graph to proper acyclicity.
 
@@ -36,7 +36,7 @@ Conventional wisdom in this case would suggest that if I have a module A which d
 
 However, it's common to go beyond this simple two\-module arrangement. Modern frameworks are complex and may integrate with a multiplicity of other frameworks. It is not hard to imagine the scenario getting out of hand:
 
-![img5](http://word-bits.flurg.com/images/img5-176x300.png)
+![img5](http://word-bits.flurg.com/images/img5.png)
 
   This is either heaven or hell, depending on where you fall on the academic\-versus\-pragmatic spectrum. In this example we have developed as many as 16 different SPIs and 8 extra modules; it is clearly possible to encounter a geometric increase in the amount of development effort to completely integrate a given number of modules (though in the real world you will rarely if ever encounter a complete mesh of interdependencies in projects which are truly independent).
 
@@ -50,7 +50,7 @@ Most libraries and frameworks don't just appear one day, wholly formed. They ten
 
 Generally this works when you  *have* an A on\-hand, and you want to use it to make a B \- and then later you have that B on\-hand and you want to use it to make an A. But imagine you are, say, a Fedora maintainer who wants to build everything from source.  Do you then go and build the entire version history?
 
-![img7](http://word-bits.flurg.com/images/img7-69x300.png)
+![img7](http://word-bits.flurg.com/images/img7.png)
 
 As you can see, this has potential to get quite out of hand, even if it is a fairly "pure" solution. This problem can however be mitigated by being diligent about maintaining (and guaranteeing) your pre\-built history, in which case you'd only ever have to build a long chain one time, if at all. After that you would have permanent history that you could leverage at any time. I will admit that this solution is what I find to be most appealing; it is quite similar to the status quo in terms of what we have in Maven repositories \- a more\-or\-less permanent record of pre\-built binary files \- granted that the exact provenance of such artifacts cannot always be well\-established, especially in Maven Central where it cannot be known for certain whether the binary artifacts were built from the corresponding source.
 
