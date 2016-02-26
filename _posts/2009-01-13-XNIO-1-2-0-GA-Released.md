@@ -28,7 +28,7 @@ date: 2009-01-13 18:09:00
 
 * \[ <a href="https://jira.jboss.org/jira/browse/XNIO-54">XNIO-54</a>\] \- API for one\-time servers
 
-* \[ <a href="https://jira.jboss.org/jira/browse/XNIO-64">XNIO-64</a>\] \- IoFuture notifiers with attachments ( **see below** )
+* \[ <a href="https://jira.jboss.org/jira/browse/XNIO-64">XNIO-64</a>\] \- IoFuture notifiers with attachments ( **see below**)
 
 * \[ <a href="https://jira.jboss.org/jira/browse/XNIO-66">XNIO-66</a>\] \- Add static blocking read/write methods to Channels
 
@@ -52,4 +52,4 @@ Project page: <a href="http://www.jboss.org/xnio">http://www.jboss.org/xnio</a>
 
 Bug tracker: <a href="https://jira.jboss.org/jira/browse/XNIO">https://jira.jboss.org/jira/browse/XNIO</a>
 
-Just a reminder that the 1.2.0.GA release is **not 100% binary\- and source\-compatible with 1.1.x** , so if you choose to move to 1.2.0.GA, make sure you do a clean build of your project to identify any potential problems with the changes surrounding the new `IoFuture` attachment feature.
+Just a reminder that the 1.2.0.GA release is **not 100% binary\- and source\-compatible with 1.1.x**, so if you choose to move to 1.2.0.GA, make sure you do a clean build of your project to identify any potential problems with the changes surrounding the new `IoFuture` attachment feature.

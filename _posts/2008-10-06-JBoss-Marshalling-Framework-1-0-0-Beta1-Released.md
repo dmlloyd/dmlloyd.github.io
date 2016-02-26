@@ -14,7 +14,7 @@ date: 2008-10-06 18:46:00
 
 * Pluggable predefined instance tables, which make it easy to handle remote references
 
-* Pluggable externalizers which may be used to serialize classes which are not `Serializable` , or for which an alternate strategy is needed
+* Pluggable externalizers which may be used to serialize classes which are not `Serializable`, or for which an alternate strategy is needed
 
 * Customizable stream headers
 

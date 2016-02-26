@@ -182,7 +182,7 @@ Privileged actions get a performance boost (no object creation, no virtual metho
 
 The way I describe these closures is based on a few key technical ideas.
 
-* The code block, when it executes, **maintains a "link" to the outer stack frame** . This is what allows the outer variables to be accessed. All local variables continue to live on the stack.
+* The code block, when it executes, **maintains a "link" to the outer stack frame**. This is what allows the outer variables to be accessed. All local variables continue to live on the stack.
 
 * As such, the actual internal value of the closure parameter is either a pair consisting of the parent stack frame address and the code block address, or a pointer to a **trampoline** \- a small bit of machine code, generated at runtime, which resides on the stack and initializes the child stack frame with said pointer before passing execution to the inner code block.
 

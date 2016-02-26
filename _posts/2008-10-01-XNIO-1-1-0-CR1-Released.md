@@ -22,7 +22,7 @@ date: 2008-10-01 16:56:00
 
 * Added some handy util classes for dealing with `Closeable` resources.
 
-* Consolidated the `IoFuture.Status` value `TIMED_OUT` into `WAITING` , since the two are synonymous anyway, which will simplify `IoFuture.Notifier` implementation among other things.
+* Consolidated the `IoFuture.Status` value `TIMED_OUT` into `WAITING`, since the two are synonymous anyway, which will simplify `IoFuture.Notifier` implementation among other things.
 
 * Added an abstract base class to allow implementation of one\-line `IoFuture.Notifier` implementations.
 

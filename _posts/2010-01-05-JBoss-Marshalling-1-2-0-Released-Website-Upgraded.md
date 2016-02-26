@@ -18,7 +18,7 @@ Other features that JBoss Marshalling provides which are missing from the Java O
 
 * Pluggable predefined instance tables, which make it easy to handle remote references
 
-* Pluggable externalizers which may be used to serialize classes which are not `Serializable` , or for which an alternate strategy is needed
+* Pluggable externalizers which may be used to serialize classes which are not `Serializable`, or for which an alternate strategy is needed
 
 * Customizable stream headers
 

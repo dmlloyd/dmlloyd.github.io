@@ -45,7 +45,7 @@ It works perfectly as long as nothing fails. Of course if anything at all throws
         br.close();  
     }
 
-The first problem is simply that the values of `is` , `r` , and `br` are not checked for `null` . The solution here could simply be to check for `null` before calling `close` .
+The first problem is simply that the values of `is`, `r`, and `br` are not checked for `null`. The solution here could simply be to check for `null` before calling `close`.
 
 The second problem is that any of those three `close` statements can also throw an exception; this causes two additional problems: throwing an exception from a finally block will obscure any earlier exception, and if an earlier `close` fails, the later one will never be called. Solve this one by giving each `close` its own little `try/catch` block.
 
