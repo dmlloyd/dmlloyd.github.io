@@ -4,7 +4,7 @@ title: XNIO 1.1.0.CR1 Released
 categories: 
 date: 2008-10-01 16:56:00
 ---
- As the title states - 1.1.0.CR1 is available [at the XNIO project download page]("http://www.jboss.org/xnio/downloads/" "") . The main list of changes:
+ As the title states - 1.1.0.CR1 is available [at the XNIO project download page](http://www.jboss.org/xnio/downloads/ "") . The main list of changes:
 
 * Added API support for creating one-way and two-way pipes.
 

@@ -6,7 +6,7 @@ date: 2009-02-25 17:48:00
 ---
 
 
-Today I ran across a problem that I've hit frequently in the past, this time while designing an extension to [JBoss Marshalling]("http://www.jboss.org/jbossmarshalling" "") which allows users to annotate classes which are to be specially externalized. The problem is that one wants to "remember" what `Externalizer` instances go with what classes on a semi-permanent basis; however, one does not wish to leak class references (which can lead to the permanent generation filling up, and your application crashing with an `OutOfMemoryError` , especially if you're frequently loading and unloading classes).
+Today I ran across a problem that I've hit frequently in the past, this time while designing an extension to [JBoss Marshalling](http://www.jboss.org/jbossmarshalling "") which allows users to annotate classes which are to be specially externalized. The problem is that one wants to "remember" what `Externalizer` instances go with what classes on a semi-permanent basis; however, one does not wish to leak class references (which can lead to the permanent generation filling up, and your application crashing with an `OutOfMemoryError` , especially if you're frequently loading and unloading classes).
 
 The traditional solution to keep a leak-resistant cache is to employ a `WeakHashMap` like so (usually in conjunction with some concurrency strategy, like a `Lock` ):
 
@@ -42,4 +42,4 @@ A `ClassLocal` instance looks and acts a lot like a map, but with one important 
 
 ...which could then be accessed directly by the `ClassLocal` implementation. Real JDK experts could probably think of a few ways to optimize this - e.g. avoid creating a map instance until someone puts data there, come up with a more clever locking strategy, etc.
 
-**Update:** As I ought to have expected, I'm nowhere near the first person ever to let their mind wander down this path - there's a [Sun bug (#6493635)]("http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6493635" "") about it, as well as articles by such clever folks as [Crazy Bob]("http://crazybob.org/2006/12/caching-class-related-information.html" "") and [Jacob Hookom]("http://weblogs.java.net/blog/jhook/archive/2006/12/class_metadata.html" "") about this very topic.
+**Update:** As I ought to have expected, I'm nowhere near the first person ever to let their mind wander down this path - there's a [Sun bug (#6493635)](http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6493635 "") about it, as well as articles by such clever folks as [Crazy Bob](http://crazybob.org/2006/12/caching-class-related-information.html "") and [Jacob Hookom](http://weblogs.java.net/blog/jhook/archive/2006/12/class_metadata.html "") about this very topic.

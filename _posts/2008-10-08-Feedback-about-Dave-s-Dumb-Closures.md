@@ -4,7 +4,7 @@ title: Feedback about Dave's Dumb Closures
 categories: 
 date: 2008-10-08 07:04:00
 ---
- I've gotten some feedback about [my closure idea]("http://dmlloyd.blogspot.com/2008/09/daves-dumb-closures.html" "") . Some of it bad, some of it... also bad. I thought I'd reply to all the comments in a new posting here rather than try to squeeze it all in to the crappy comment thing.
+ I've gotten some feedback about [my closure idea](http://dmlloyd.blogspot.com/2008/09/daves-dumb-closures.html "") . Some of it bad, some of it... also bad. I thought I'd reply to all the comments in a new posting here rather than try to squeeze it all in to the crappy comment thing.
 
 > Rémi Forax said...  
 > You can't get ride of exception transparency, at least if you want to keep checked exceptions.  
