@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+Hi! My name is David Lloyd. I'm an engineer at Red Hat who works on a wide variety of Java-, JBoss-, and WildFly-related projects. You can usually find me on FreeNode IRC as "dmlloyd" in various Java- and JBoss-related channels.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[david.lloyd@redhat.com](mailto:david.lloyd@redhat.com)
