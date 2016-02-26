@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JSR 294/277: Why don't we have standard Java modularity?
+title: JSR 294/277&#58; Why don't we have standard Java modularity?
 categories: 
 date: 2009-12-09 21:33:00
 ---
