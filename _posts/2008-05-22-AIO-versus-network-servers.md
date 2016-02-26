@@ -19,7 +19,7 @@ And later on in handler:
 
 Why is this not right for high-connection-count network servers? Imagine your buffer size is 1K. Imagine you've got 10k concurrent connections. You need a buffer to be allocated before you can kick off an async read. That's an initial 10 megabytes in idle buffers, not to mention a *minimum* of 10k buffer allocations - even if the connection is never used or the channel never becomes readable.
 
-This problem is similar to [the problem that Jean-Francois Arcand is referring to](http://weblogs.java.net/blog/jfarcand/archive/2006/06/tricks_and_tips.html "") in his NIO Tips & Tricks blog.
+This problem is similar to [the problem that Jean-Francois Arcand is referring to]("http://weblogs.java.net/blog/jfarcand/archive/2006/06/tricks_and_tips.html" "") in his NIO Tips & Tricks blog.
 
 For this reason, I still believe that multiplexing/testing for readiness is still the best approach in terms of scalability. And multiplexing for socket channels obviates the need for AIO: if a channel is readable, then a read() will by definition not block (the data is already in the receive buffer). Therefore AIO is not useful for waiting for a socket to become ready for reading.
 

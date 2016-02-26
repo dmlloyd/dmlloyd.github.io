@@ -14,7 +14,7 @@ Then reality sets in, and one is reminded that pretty much every such argument a
 
 ####  What is a Closure?
 
-A closure is defined in [FOLDOC](http://foldoc.org/?closures "") as "a data structure that holds an expression and an environment of variable bindings in which that expression is to be evaluated."
+A closure is defined in [FOLDOC]("http://foldoc.org/?closures" "") as "a data structure that holds an expression and an environment of variable bindings in which that expression is to be evaluated."
 
 Basically this translates to Java as two things: A lexically-scoped block of code, and a means to execute that code or pass it on to another method for delayed execution.
 
