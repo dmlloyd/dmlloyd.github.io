@@ -63,6 +63,22 @@ Maven has a lot of functionality that is not well-explained by documentation but
         </executions>
     </plugin>
 
+Make sure you include the resources:
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>target/generated-resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+        <!-- ...continued... -->
+    </build>
+
 To avoid circular build problems, it is a good idea to have an exclusion in the dependency declaration of the supplement:
 
     <dependency>
