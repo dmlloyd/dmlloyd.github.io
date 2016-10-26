@@ -31,7 +31,7 @@ The basic implementation strategy has several parts.
 
 #### Isolate JDK-specific code
 
-First we want all the code that relates specifically to the JDK version to be isolated.  In JBoss Modules, I've established a group of classes, including one key class called <code>JDKSpecific</code>, which contains the bulk of the differences.  You can see this class at <a href="https://github.com/dmlloyd/jboss-modules/blob/c46f38547de37c7f4132a73a064f2d4598f865bf/src/main/java/org/jboss/modules/JDKSpecific.java">this link</a> to get an idea of what is in there.  Create a commit containing this code, and push up and release a tag.
+First we want all the code that relates specifically to the JDK version to be isolated.  In JBoss Modules, I've established a group of classes, including one key class called <code>JDKSpecific</code>, which contains the bulk of the differences.  You can see this class at <a href="https://github.com/jboss-modules/jboss-modules/blob/64cae3ca527d881cd7123e5f86624e89fc51c864/src/main/java/org/jboss/modules/JDKSpecific.java">this link</a> to get an idea of what is in there.  Create a commit containing this code, and push up and release a tag.
 
 #### Create a new Maven project for the Java 9 supplement
 
