@@ -43,6 +43,7 @@ Once you have a basic implementation, create a commit, and push up and release a
 
 Maven has a lot of functionality that is not well-explained by documentation but is nevertheless exceedingly useful.  One such bit of functionality exists in the form of the Maven Dependency Plugin.  Using this plugin, we can unroll the supplement project right into our final JAR in one simple step.  The critical piece of the POM is the configuration of this plugin:
 
+```xml
     <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
@@ -62,9 +63,11 @@ Maven has a lot of functionality that is not well-explained by documentation but
             </execution>
         </executions>
     </plugin>
+```
 
 Make sure you include the resources:
 
+```xml
     <build>
         <resources>
             <resource>
@@ -78,9 +81,11 @@ Make sure you include the resources:
         </resources>
         <!-- ...continued... -->
     </build>
+```
 
 To avoid circular build problems, it is a good idea to have an exclusion in the dependency declaration of the supplement:
 
+```xml
     <dependency>
         <groupId>org.jboss.modules</groupId>
         <artifactId>jboss-modules-jdk9-supplement</artifactId>
@@ -93,6 +98,7 @@ To avoid circular build problems, it is a good idea to have an exclusion in the 
             </exclusion>
         </exclusions>
     </dependency>
+```
 
 ## Conclusion
 
