@@ -150,7 +150,7 @@ Note that in the success case, the ```releaseWrite()``` does not actually serve 
 
 There are numerous variations on this style of lock; for example, some implementations require that no additional readers be allowed if there is a writer waiting for a turn to lock, or that all lock requests must strictly be queued in order.  The implementation I've given here will block all writers until all readers have released the lock; that is, it strongly prefers readers over writers, which is appropriate for our use case, but maybe not for yours.
 
-It is possible to use some bits of the counter (or a second counter) to track the number of waiting writers, and have any additional readers wait in this case.  Such a modifications, while useful for certain use cases, might allow deadlocks in cases where the simple implementation does not, so care must be taken in such cases.
+It is possible to use some bits of the counter (or a second counter) to track the number of waiting writers, and have any additional readers wait in this case.  Such a modification, while useful for certain use cases, might allow deadlocks in cases where the simple implementation does not.
 
 ### Acknowledgements
 
