@@ -154,5 +154,5 @@ It is possible to use some bits of the counter (or a second counter) to track th
 
 ### Acknowledgements
 
-Thanks to my colleague Richard Opálka, and to ```##java``` denizen ```yawcat```, for finding bugs in the original workup.
+Thanks to my colleague Richard Opálka, and to ```##java``` denizen ```yawkat```, for finding bugs in the original workup.
 
