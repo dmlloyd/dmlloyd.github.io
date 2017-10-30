@@ -142,7 +142,7 @@ public final class MyExample extends ReadWriteLockable {
 }
 ```
 
-The downgrade is <em>atomic<em>, meaning that any updates performed under the write-locked portion will be visible unchanged under the read-locked portion; in other words, there is no observable period of time where neither the read nor write lock is held in transition from the write-locked state to the read-locked state.
+The downgrade is <em>atomic</em>, meaning that any updates performed under the write-locked portion will be visible unchanged under the read-locked portion; in other words, there is no observable period of time where neither the read nor write lock is held in transition from the write-locked state to the read-locked state.
 
 Note that in the success case, the ```releaseWrite()``` does not actually serve a useful purpose: it just triggers a spurious ```notify()```, causing one waiting writer (if there are any) to wake up and immediately sleep again.  Nevertheless, it cannot be removed, otherwise an exception thrown in the write-locked work section would cause any waiting writers to remain stuck, possibly indefinitely.
 
