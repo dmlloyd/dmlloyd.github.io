@@ -1,7 +1,7 @@
 ---
 layout: :theme/post
 title: Proper resource management
-categories: 
+categories:
 date: 2008-07-28 21:22:00
 aliases:
   - /2008/07/proper-resource-management.html
@@ -24,38 +24,42 @@ To solve this problem, you don't need fancy closures or automatic resource manag
 
 Consider this (incorrect) example which reads a couple lines from a file:
 
-    // Example of INCORRECT code - DO NOT do this  
-    try {  
-        InputStream is = new FileInputStream("file.txt");  
-        Reader r = new InputStreamReader(is);  
-        BufferedReader br = new BufferedReader(r);  
-        System.out.println("The first line is " + br.readLine());  
-        System.out.println("The second line is " + br.readLine());  
-        br.close();  
-        r.close();  
-        is.close();  
-    } catch (IOException ex) {  
-        // it failed :(  
-        ex.printStackTrace();  
-    }
+```java
+// Example of INCORRECT code - DO NOT do this
+try {
+    InputStream is = new FileInputStream("file.txt");
+    Reader r = new InputStreamReader(is);
+    BufferedReader br = new BufferedReader(r);
+    System.out.println("The first line is " + br.readLine());
+    System.out.println("The second line is " + br.readLine());
+    br.close();
+    r.close();
+    is.close();
+} catch (IOException ex) {
+    // it failed :(
+    ex.printStackTrace();
+}
+```
 
 It works perfectly as long as nothing fails. Of course if anything at all throws an exception in that block, then you may leak one or more resources (since the `close()` methods may not all be reached). There are many naive solutions to the problem, like this one that illustrates a couple different common errors:
 
-    // INCORRECT solution - DO NOT do this  
-    InputStream is = null;  
-    Reader r = null;  
-    BufferedReader br = null;  
-    try {  
-        is = new FileInputStream("file.txt");  
-        r = new InputStreamReader(is);  
-        br = new BufferedReader(r);  
-        System.out.println("The first line is " + br.readLine());  
-        System.out.println("The second line is " + br.readLine());  
-    } finally {  
-        is.close();  
-        r.close();  
-        br.close();  
-    }
+```java
+// INCORRECT solution - DO NOT do this
+InputStream is = null;
+Reader r = null;
+BufferedReader br = null;
+try {
+    is = new FileInputStream("file.txt");
+    r = new InputStreamReader(is);
+    br = new BufferedReader(r);
+    System.out.println("The first line is " + br.readLine());
+    System.out.println("The second line is " + br.readLine());
+} finally {
+    is.close();
+    r.close();
+    br.close();
+}
+```
 
 The first problem is simply that the values of `is`, `r`, and `br` are not checked for `null`. The solution here could simply be to check for `null` before calling `close`.
 
@@ -65,123 +69,131 @@ And the third (and maybe most subtle) problem is that even if you solved the pri
 
 So implementing these suggestions might leave us with something like this monstrosity:
 
-    // Safe but very ugly example - I recommend against it  
-    InputStream is = null;  
-    Reader r = null;  
-    BufferedReader br = null;  
-    try {  
-        is = new FileInputStream("file.txt");  
-        r = new InputStreamReader(is);  
-        br = new BufferedReader(r);  
-        System.out.println("The first line is " + br.readLine());  
-        System.out.println("The second line is " + br.readLine());  
-        br.close();  
-        r.close();  
-        is.close();  
-    } catch (IOException e) {  
-        e.printStackTrace();  
-    } finally {  
-        if (is != null) try {  
-            is.close();  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
-        if (r != null) try {  
-            r.close();  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
-        if (br != null) try {  
-            br.close();  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
+```java
+// Safe but very ugly example - I recommend against it
+InputStream is = null;
+Reader r = null;
+BufferedReader br = null;
+try {
+    is = new FileInputStream("file.txt");
+    r = new InputStreamReader(is);
+    br = new BufferedReader(r);
+    System.out.println("The first line is " + br.readLine());
+    System.out.println("The second line is " + br.readLine());
+    br.close();
+    r.close();
+    is.close();
+} catch (IOException e) {
+    e.printStackTrace();
+} finally {
+    if (is != null) try {
+        is.close();
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+    if (r != null) try {
+        r.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    if (br != null) try {
+        br.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+```
 
 That's 30 lines of code to read and print two lines from a file \- yuck! There is in fact a more elegant way to solve this problem. The first step is to restructure the code with separate `try/finally` blocks for each resource:
 
-    // Safe, but really just as ugly...  
-    try {  
-        final InputStream is = new FileInputStream("file.txt");  
-        try {  
-            final Reader r = new InputStreamReader(is);  
-            try {  
-                final BufferedReader br = new BufferedReader(r);  
-                try {  
-                    System.out.println("The first line is " + br.readLine());  
-                    System.out.println("The second line is " + br.readLine());  
-                    br.close();  
-                    r.close();  
-                    is.close();  
-                } finally {  
-                    try {  
-                        br.close();  
-                    } catch (IOException e) {  
-                        e.printStackTrace();  
-                    }  
-                }  
-            } finally {  
-                try {  
-                    r.close();  
-                } catch (IOException e) {  
-                    e.printStackTrace();  
-                }  
-            }  
-        } finally {  
-            try {  
-                is.close();  
-            } catch (IOException e) {  
-                e.printStackTrace();  
-            }  
-        }  
-    } catch (IOException e) {  
-        // failure  
-        e.printStackTrace();  
+```java
+// Safe, but really just as ugly...
+try {
+    final InputStream is = new FileInputStream("file.txt");
+    try {
+        final Reader r = new InputStreamReader(is);
+        try {
+            final BufferedReader br = new BufferedReader(r);
+            try {
+                System.out.println("The first line is " + br.readLine());
+                System.out.println("The second line is " + br.readLine());
+                br.close();
+                r.close();
+                is.close();
+            } finally {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } finally {
+            try {
+                r.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    } finally {
+        try {
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+} catch (IOException e) {
+    // failure
+    e.printStackTrace();
+}
+```
 
 Notice two things \- first, I've switched to `final` variables to hold the resource. This really underlines the point that we do not need a `null` check anymore for each resource. That's one problem solved. Second, there's more of a structure to the resource management that emphasizes their lexical scoping. But look how huge it is \- we're actually doing worse by about 7 lines!
 
 The final enhancement is the addition of a static method to safely clean up a resource. It looks like this:
 
-    // put this anywhere you like in your common code.  
-    public static void safeClose(Closeable c) {  
-        try {  
-            c.close();  
-        } catch (Throwable t) {  
-            // Resource close failed!  There's only one thing we can do:  
-            // Log the exception using your favorite logging framework  
-            t.printStackTrace();  
-        }  
+```java
+// put this anywhere you like in your common code.
+public static void safeClose(Closeable c) {
+    try {
+        c.close();
+    } catch (Throwable t) {
+        // Resource close failed!  There's only one thing we can do:
+        // Log the exception using your favorite logging framework
+        t.printStackTrace();
     }
+}
+```
 
 Now our code can be changed to look like this:
 
-    // Now this is more like it - readable and foolproof!  
-    try {  
-        final InputStream is = new FileInputStream("file.txt");  
-        try {  
-            final Reader r = new InputStreamReader(is);  
-            try {  
-                final BufferedReader br = new BufferedReader(r);  
-                try {  
-                    System.out.println("The first line is " + br.readLine());  
-                    System.out.println("The second line is " + br.readLine());  
-                    br.close();  
-                    r.close();  
-                    is.close();  
-                } finally {  
-                    safeClose(br);  
-                }  
-            } finally {  
-                safeClose(r);  
-            }  
-        } finally {  
-            safeClose(is);  
-        }  
-    } catch (IOException e) {  
-        // failure  
-        e.printStackTrace();  
+```java
+// Now this is more like it - readable and foolproof!
+try {
+    final InputStream is = new FileInputStream("file.txt");
+    try {
+        final Reader r = new InputStreamReader(is);
+        try {
+            final BufferedReader br = new BufferedReader(r);
+            try {
+                System.out.println("The first line is " + br.readLine());
+                System.out.println("The second line is " + br.readLine());
+                br.close();
+                r.close();
+                is.close();
+            } finally {
+                safeClose(br);
+            }
+        } finally {
+            safeClose(r);
+        }
+    } finally {
+        safeClose(is);
     }
+} catch (IOException e) {
+    // failure
+    e.printStackTrace();
+}
+```
 
 All of the original problems are solved, and in addition it is a lot easier to see what is going on in terms of resource cleanup. This is by no means the only solution to the problem, and certainly not the shortest, but I believe it is the cleanest and safest (in terms of human error).
 
