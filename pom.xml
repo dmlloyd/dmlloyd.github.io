@@ -15,6 +15,8 @@
         <quarkus.platform.version>3.16.1</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.0</surefire-plugin.version>
+
+        <roq.version>1.0.2</roq.version>
     </properties>
 
     <dependencyManagement>
@@ -33,17 +35,17 @@
         <dependency>
             <groupId>io.quarkiverse.roq</groupId>
             <artifactId>quarkus-roq</artifactId>
-            <version>1.0.1</version>
+            <version>${roq.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.roq</groupId>
             <artifactId>quarkus-roq-plugin-aliases</artifactId>
-            <version>1.0.1</version>
+            <version>${roq.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.roq</groupId>
             <artifactId>quarkus-roq-deployment</artifactId>
-            <version>1.0.1</version>
+            <version>${roq.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -53,12 +55,17 @@
         <dependency>
             <groupId>io.quarkiverse.roq</groupId>
             <artifactId>quarkus-roq-theme-default</artifactId>
-            <version>1.0.1</version>
+            <version>${roq.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.web-bundler</groupId>
             <artifactId>quarkus-web-bundler</artifactId>
             <version>1.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.roq</groupId>
+            <artifactId>quarkus-roq-plugin-asciidoc</artifactId>
+            <version>${roq.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
