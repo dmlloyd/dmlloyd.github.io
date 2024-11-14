@@ -24,6 +24,7 @@ These APIs are fairly useful for a number of use cases (including non-access cas
 In Java 7, a new class was introduced which was intended to overcome these limitations, called https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandle.html[`MethodHandle`,window=javadoc].
 This class, and its related classes in https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/package-summary.html[`java.lang.invoke`,window=javadoc], are all designed to support a new and more efficient means
 of indirect access to class members.
+The initial motivating use case included support for the new `invokedynamic` JVM instruction as part of https://jcp.org/ja/jsr/detail?id=292[JSR 292,window=_blank].
 
 This efficiency is primarily achieved through a few specific mechanisms:
 
@@ -74,7 +75,7 @@ So for example, given `mh` of type `MethodHandle`, a _call site_ may look like t
 
 [source,java]
 ----
-int result = mh.invokeExact(123, "Hello world!", Object.class);
+int result = (int) mh.invokeExact(123, "Hello world!", Object.class);
 ----
 
 In this case, the method being invoked is inferred to take three arguments, whose types are `int`, `String`, and `Class`, and whose return type is `int`, and so out of the infinite possible methods to call, this one (and only this one) is selected.
@@ -92,11 +93,11 @@ mh.invokeExact(123, "Hello world!", Object.class);
 
 However, with signature polymorphic methods, this could give you a surprise: the selected method no longer has a return type of `int`, but of `void`, which can cause an error in some cases (explained up ahead).
 
-To force the call to return the type you want, you have to either cast the return type or assign it to an ignored variable, or otherwise do something with the result that is unambiguous in terms of type:
+To force the call to return the type you want, you have to cast the return type, and either assign it to an ignored variable, or otherwise do something with the result that is unambiguous in terms of type:
 
 [source,java]
 ----
-int _ = mh.invokeExact(123, "Hello world!", Object.class);
+var _ = (int) mh.invokeExact(123, "Hello world!", Object.class);
 ----
 
 Now we've forced the Java compiler to establish that the called method returns `int`.
@@ -169,7 +170,7 @@ Instead, use this pattern _always_:
 ----
 private void invokeIt(MethodHandle handle, int foo, String bar) {
     try {
-        int ignored = handle.invokeExact(foo, bar);
+        int ignored = (int) handle.invokeExact(foo, bar);
     } catch (RuntimeException | Error e) {
         throw e;
     } catch (Throwable t) {
@@ -184,7 +185,7 @@ If the method handle in question has some specific checked exceptions that can b
 ----
 private void invokeIt(MethodHandle handle, int foo, String bar) throws SpecificException {
     try {
-        int ignored = handle.invokeExact(foo, bar);
+        int ignored = (int) handle.invokeExact(foo, bar);
     } catch (RuntimeException | Error | SpecificException e) {
         throw e;
     } catch (Throwable t) {
