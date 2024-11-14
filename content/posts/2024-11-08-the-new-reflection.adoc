@@ -107,7 +107,7 @@ Note in this example we are using the relatively recent `_` feature, but on olde
 
 Another tricky case comes up when you want to pass in or return a value whose type is _different_ from the type on the method you want to call.
 
-For example, imagine we want to call the same method as above, but we want the result to be stored in a `long`. If we just change our variable type to `long`, we know that the wrong method will be called; we specifically want the one which returns an `int`. We can solve by this using a cast:
+For example, imagine we want to call the same method as above, but we want the result to be stored in a `long`. If we just change our variable type to `long`, we know that the wrong method will be called; we specifically want the one which returns an `int`. We can solve this by ensuring that the cast matches the desired return type:
 
 [source,java]
 ----
