@@ -64,7 +64,7 @@ So, even though Java won't let you create an overload which differs only by retu
 The main benefit of this is that it is possible to call an `invoke` method with the exact argument types of the target without having to wrap them in an array or box the arguments, and with the exact return type of the target without having to unbox the result.
 This in turn makes it easier for the compiler to optimize as well.
 
-However, because of the aforementioned restrictions, the only places you will find these kinds of method are going to be in the `java.lang.invoke` package - specifically, `MethodHandle` and `VarHandle` (which will be covered later).
+However, because of the aforementioned restrictions, the only place you will find this kind of method is in the `java.lang.invoke` package - specifically, `MethodHandle` and `VarHandle` (which will be covered later).
 
 === How to call a signature polymorphic method
 
