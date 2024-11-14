@@ -1,0 +1,16 @@
+name: Report a technical problem
+description: Report a specific technical problem with the site.
+labels: ["bug :bug:"]
+assignees: ["dmlloyd"]
+body:
+  - type: input
+    attributes:
+      label: "URL which shows the problem"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Problem description"
+      description: "Describe the problem."
+    validations:
+      required: true

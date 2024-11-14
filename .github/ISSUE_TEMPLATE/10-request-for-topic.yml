@@ -1,0 +1,22 @@
+name: Request a Topic
+description: Request an article topic for the blog.
+labels: ["request"]
+assignees: ["dmlloyd"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feel free to request any technical topic that you would like me to post about.
+        The worst case scenario is that I say "no"!
+  - type: textarea
+    attributes:
+      label: "Topic description"
+      description: "Describe the topic, and ask any questions that you think might need to be answered in a post."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "References"
+      description: "List any upstream references that you think may pertain in any way to this topic."
+    validations:
+      required: false

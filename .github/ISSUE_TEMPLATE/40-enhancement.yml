@@ -1,0 +1,11 @@
+name: Request a site feature
+description: Request a new feature for the site.
+labels: ["feature :sparkles:"]
+assignees: ["dmlloyd"]
+body:
+  - type: textarea
+    attributes:
+      label: "Feature description"
+      description: "Describe the feature that you think should be added to the site."
+    validations:
+      required: true

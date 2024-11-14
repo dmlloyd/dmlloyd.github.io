@@ -1,0 +1,16 @@
+name: Report an editorial problem
+description: Report a problem or error with the content of the site or a blog post.
+labels: ["editorial :writing_hand:"]
+assignees: ["dmlloyd"]
+body:
+  - type: input
+    attributes:
+      label: "URL of a page which shows this problem"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Problem description"
+      description: "Describe the problem in as much detail as possible."
+    validations:
+      required: true
