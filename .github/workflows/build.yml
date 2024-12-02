@@ -1,0 +1,25 @@
+name: dmlloyd.github.io build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build
+
+    steps:
+      - uses: actions/checkout@v4
+        name: checkout
+
+      - uses: actions/setup-java@v4
+        name: set up JDK
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: build with maven
+        run: |
+          mvn -B -ntp install
