@@ -250,4 +250,4 @@ The disadvantage of this approach is that it does require the cooperation of mod
 
 ## Next...
 
-In the next post in this series, I will cover some more intermediate-level cases and talk a bit out proper API design around method handles.
+In the next post in this series, I will cover some more intermediate-level cases and talk a bit about proper API design around method handles.
