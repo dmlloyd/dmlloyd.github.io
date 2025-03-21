@@ -1,6 +1,7 @@
 ---
-layout: :theme/post
+layout: post
 title: A lightweight readers/writer lock
+description: A simple way to implement a lock which supports multiple readers.
 categories: 
 author: dmlloyd
 date: 2017-10-30 12:00:00

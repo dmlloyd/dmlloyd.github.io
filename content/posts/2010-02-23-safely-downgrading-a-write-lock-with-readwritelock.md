@@ -1,6 +1,7 @@
 ---
-layout: :theme/post
+layout: post
 title: Safely downgrading a write lock with ReadWriteLock
+description: A simple pattern to safely downgrade a write lock to a read lock safely.
 categories: 
 date: 2010-02-23 14:45:00
 author: dmlloyd

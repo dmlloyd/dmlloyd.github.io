@@ -1,6 +1,7 @@
 ---
-layout: :theme/post
+layout: post
 title: Proper resource management
+description: A historical (i.e. outdated) perspective on properly dealing with closed resources.
 categories:
 date: 2008-07-28 21:22:00
 aliases:
