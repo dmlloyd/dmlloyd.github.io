@@ -16,7 +16,7 @@
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.3</surefire-plugin.version>
 
-        <roq.version>1.5.2</roq.version>
+        <roq.version>1.5.3</roq.version>
     </properties>
 
     <dependencyManagement>
