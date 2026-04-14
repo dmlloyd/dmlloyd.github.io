@@ -22,8 +22,8 @@ These APIs are fairly useful for a number of use cases (including non-access cas
 
 ## Method handles
 
-In Java 7, a new class was introduced which was intended to overcome these limitations, called <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandle.html" target="javadoc">`MethodHandle`</a>.
-This class, and its related classes in <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/package-summary.html" target="javadoc">`java.lang.invoke`</a>, are all designed to support a new and more efficient means
+In Java 7, a new class was introduced which was intended to overcome these limitations, called <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandle.html" target="javadoc">`MethodHandle`</a>.
+This class, and its related classes in <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/package-summary.html" target="javadoc">`java.lang.invoke`</a>, are all designed to support a new and more efficient means
 of indirect access to class members.
 The initial motivating use case included support for the new `invokedynamic` JVM instruction as part of <a href="https://jcp.org/ja/jsr/detail?id=292" target="_blank">JSR 292</a>.
 
@@ -39,8 +39,8 @@ In addition to acting as a replacement for a large number of reflection use case
 
 The `MethodHandle` class gives you some methods which can be used to perform an invocation. Of these, these two are the most commonly used:
 
-* <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandle.html#invoke(java.lang.Object...)" target="javadoc">`MethodHandle.invoke(...)`</a>
-* <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandle.html#invokeExact(java.lang.Object...)" target="javadoc">`MethodHandle.invokeExact(...)`</a>
+* <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandle.html#invoke(java.lang.Object...)" target="javadoc">`MethodHandle.invoke(...)`</a>
+* <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandle.html#invokeExact(java.lang.Object...)" target="javadoc">`MethodHandle.invokeExact(...)`</a>
 
 These methods, and several others in this package, don't have a specific signature (that is, they have no particular number or type of argument). Rather, they are _signature polymorphic_.
 
@@ -129,11 +129,11 @@ Most IDEs will understand this construct and will not warn you about the seeming
 
 ## Representing method types with `MethodType`
 
-Every `MethodHandle` instance has a _method type_, represented by instances of <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodType.html" target="javadoc">`MethodType`</a> and accessible using the <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandle.html#type()" target="javadoc">`MethodHandle#type()`</a> accessor method.
+Every `MethodHandle` instance has a _method type_, represented by instances of <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodType.html" target="javadoc">`MethodType`</a> and accessible using the <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandle.html#type()" target="javadoc">`MethodHandle#type()`</a> accessor method.
 This class encodes the argument types and return type (as `Class` instances) of a method, which suffices to identify the type of any given call site.
 Every call site has an implied `MethodType` which goes along with it.
 
-A `MethodHandle` may be transformed to have a different type by using the <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandle.html#asType(java.lang.invoke.MethodType)" target="javadoc">`MethodHandle#asType()`</a> method.
+A `MethodHandle` may be transformed to have a different type by using the <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandle.html#asType(java.lang.invoke.MethodType)" target="javadoc">`MethodHandle#asType()`</a> method.
 This method returns a new version of the given `MethodHandle`, but where each argument and the return type are based on those of the given `MethodType`.
 The number of arguments in the new type must equal the number of arguments in the old type, and the conversion must be valid.
 For example, if you have a method handle whose return type is `String`, and you try to convert it to one which returns an `int`, an exception is thrown.
@@ -191,7 +191,7 @@ private void invokeIt(MethodHandle handle, int foo, String bar) throws SpecificE
 ## Acquiring a `MethodHandle`: `Lookup`
 
 A `MethodHandle` is not useful unless you can somehow acquire one.
-In order to acquire a `MethodHandle`, you need an instance of <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandles.Lookup.html" target="javadoc">`MethodHandles.Lookup`</a>.
+In order to acquire a `MethodHandle`, you need an instance of <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandles.Lookup.html" target="javadoc">`MethodHandles.Lookup`</a>.
 
 A `Lookup` instance provides factory methods which can create method handles representing:
 
@@ -202,10 +202,10 @@ A `Lookup` instance provides factory methods which can create method handles rep
 
 A `Lookup` functions as an access key to a given _lookup class_, which is the class that is associated with the `Lookup` instance. The lookup class can be returned by calling the `lookupClass()` getter method on a `Lookup` instance.
 
-The access power of the `Lookup` depends not only on the lookup class, but also on its <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandles.Lookup.html#lookupModes()" target="javadoc">_lookup mode_</a>.
+The access power of the `Lookup` depends not only on the lookup class, but also on its <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandles.Lookup.html#lookupModes()" target="javadoc">_lookup mode_</a>.
 The lookup mode determines which access levels are accessible by the `Lookup`.
 For example, a `Lookup` with `PRIVATE` access may be used to access any `private` member that is accessible from the lookup class. However a `Lookup` which lacks `PRIVATE` access may not access any `private` members, even those which would otherwise be accessible from the lookup class.
-A lookup with reduced lookup modes may be created by calling the <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandles.Lookup.html#dropLookupMode(int)" target="javadoc"> `dropLookupMode(int)`</a> method with the specific mode to drop.
+A lookup with reduced lookup modes may be created by calling the <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandles.Lookup.html#dropLookupMode(int)" target="javadoc"> `dropLookupMode(int)`</a> method with the specific mode to drop.
 
 There are several possible ways to acquire a `Lookup`.
 The best strategy to use depends on use case.
@@ -213,14 +213,14 @@ The best strategy to use depends on use case.
 ### The public `Lookup`
 
 The public `Lookup` is a `Lookup` which can access any `public` member on any `public` class.
-It is a singleton which can be acquired by calling <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandles.html#publicLookup()" target="javadoc">`MethodHandles.publicLookup()`</a>.
+It is a singleton which can be acquired by calling <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandles.html#publicLookup()" target="javadoc">`MethodHandles.publicLookup()`</a>.
 No special module flags or privileges are required to acquire and use this `Lookup`. The lookup class of the public `Lookup` is `Object.class`.
 This type of `Lookup` is most suitable for use implementations of APIs which only require access to `public` members.
 
 ### Full privilege `Lookup`
 
 A full-privilege lookup is available to every class by way of the
-<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandles.html#lookup()" target="javadoc">`MethodHandles.lookup()`</a> method, and in fact this is the most common way to acquire a `Lookup` other than the public `Lookup` instance.
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandles.html#lookup()" target="javadoc">`MethodHandles.lookup()`</a> method, and in fact this is the most common way to acquire a `Lookup` other than the public `Lookup` instance.
 
 This method is `static` and does not accept any arguments.
 The lookup class of the returned `Lookup` is always that of the calling class,
@@ -240,7 +240,7 @@ Despite what it may seem based on what has been said so far, it is in fact possi
 This access however is mediated by Java access controls, specifically those relating to modules.
 It also requires an existing full-privilege lookup to act as a seed.
 
-To acquire the private `Lookup`, the instance method [`lookup.privateLookupIn(Class<?>)`](https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/invoke/MethodHandles.html#privateLookupIn(java.lang.Class,java.lang.invoke.MethodHandles.Lookup)) is called on the seed `Lookup`.
+To acquire the private `Lookup`, the instance method [`lookup.privateLookupIn(Class<?>)`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/MethodHandles.html#privateLookupIn(java.lang.Class,java.lang.invoke.MethodHandles.Lookup)) is called on the seed `Lookup`.
 This method performs an access control check which is based on the lookup class of the original `Lookup` to determine whether that class is allowed to access the target class.
 This check will pass if the target class is in a module that is `open`, or the package of the target class is `open`, or the package is `open` specifically to the module of the original lookup class.
 Note that the unnamed module (where classpath classes live) is always considered to be `open`.
