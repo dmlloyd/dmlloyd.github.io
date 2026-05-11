@@ -1,3 +1,27 @@
+@font-face {
+  font-family: "DejaVu Sans";
+  font-weight: 400;
+  font-style: normal;
+  src: local("DejaVu Sans"), url("/static/assets/fonts/DejaVuSans.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DejaVu Sans";
+  font-weight: 700;
+  font-style: normal;
+  src: local("DejaVu Sans Bold"), url("/static/assets/fonts/DejaVuSans-Bold.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DejaVu Sans Mono";
+  font-weight: 400;
+  font-style: normal;
+  src: local("DejaVu Sans Mono"), url("/static/assets/fonts/DejaVuSansMono.ttf") format("truetype");
+  font-display: swap;
+}
+
 :root {
   --font-heading: "DejaVu Sans", ui-sans-serif, system-ui, sans-serif;
   --font-body: "DejaVu Sans", ui-sans-serif, system-ui, sans-serif;
