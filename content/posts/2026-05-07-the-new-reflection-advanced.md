@@ -108,7 +108,7 @@ MethodHandle compare = lookup.findStatic(Integer.class, "compare",
 MethodHandle spread = compare.asSpreader(int[].class, 2);
 // spread has type (int[])int
 
-int result = (int) spread.invokeExact(new int[]{3, 7}); // returns -1
+int result = (int) spread.invokeExact(new int[] { 3, 7 }); // returns -1
 ```
 
 ### Collecting: positional to array
