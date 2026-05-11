@@ -2,7 +2,7 @@
 layout: post
 title: The new reflection - Basics
 description: An introduction to using the advanced capabilities of member access since Java 9.
-categories:
+categories: []
 author: dmlloyd
 date: 2024-11-08 09:03:29
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: The new reflection - Advanced method handles
 description: Advanced method handle composition, control flow combinators, ConstantBootstraps, and performance.
-categories:
+categories: []
 author: dmlloyd
 date: 2026-05-07 09:00:00
 ---
