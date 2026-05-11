@@ -2,7 +2,7 @@
 layout: post
 title: Comments enabled!
 description: I've enabled comments via Giscus and GitHub.
-categories:
+categories: []
 author: dmlloyd
 date: 2025-03-21 14:40:36
 ---

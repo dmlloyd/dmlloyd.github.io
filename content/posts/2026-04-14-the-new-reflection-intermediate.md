@@ -2,7 +2,7 @@
 layout: post
 title: The new reflection - Intermediate use cases
 description: Intermediate method handle usage covering lookup factories, handle adaptations, and API design.
-categories:
+categories: []
 author: dmlloyd
 date: 2026-04-14 10:36:00
 ---

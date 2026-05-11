@@ -2,7 +2,7 @@
 layout: post
 title: AIO versus network servers
 description: Some fundamental conflicts relating to asynchronous I/O compared to traditional sockets.
-categories: 
+categories: []
 date: 2008-05-22 14:38:00
 aliases:
   - /2008/05/aio-versus-network-servers.html
