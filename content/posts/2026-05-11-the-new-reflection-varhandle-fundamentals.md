@@ -1,5 +1,6 @@
 ---
-layout: post
+layout: post-series
+series: The new reflection
 title: The new reflection - VarHandle fundamentals
 description: An introduction to VarHandle covering motivation, acquisition, and basic access modes.
 categories: []

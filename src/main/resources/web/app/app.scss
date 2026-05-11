@@ -4,6 +4,20 @@
   --font-mono: "DejaVu Sans Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
+section.series {
+  padding-block: var(--spacing);
+
+  h3 {
+    margin-top: calc(var(--spacing) * 3);
+    margin-bottom: calc(var(--spacing) * 1.5);
+  }
+
+  li {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 .giscus {
   padding: 10px;
 }
