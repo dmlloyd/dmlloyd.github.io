@@ -9,13 +9,13 @@ aliases:
   - /rwlocks-with-just-synch/
 ---
 
-In our <a href="https://github.com/jboss-msc/jboss-msc">JBoss MSC</a> project, it has become necessary to introduce a multiple-readers/single-writer style of lock, however the JDK's ReadWriteLock APIs are too heavy for the job.  Our solution is to implement such a thing using only an ```int``` field and synchronization.
+In our [JBoss MSC](https://github.com/jboss-msc/jboss-msc) project, it has become necessary to introduce a multiple-readers/single-writer style of lock, however the JDK's ReadWriteLock APIs are too heavy for the job.  Our solution is to implement such a thing using only an `int` field and synchronization.
 
 ### Theory of operation
 
 The basic idea behind a readers/writer lock is that read locks are shared, meaning multiple threads can proceed holding read locks at the same time, whereas write locks are exclusive, meaning no other thread may hold any other kind of lock as long as the write lock is held.
 
-In this particular implementation, we use an ```int``` field to track the number of active readers.  The synchronization itself is used for the write lock, using the monitor's built-in condition ```wait```/```notify``` to block and unblock waiting writers.  When a reader lock is held, the monitor is not held but the reader count is greater than zero.
+In this particular implementation, we use an `int` field to track the number of active readers.  The synchronization itself is used for the write lock, using the monitor's built-in condition `wait`/`notify` to block and unblock waiting writers.  When a reader lock is held, the monitor is not held but the reader count is greater than zero.
 
 ### Implementation
 
@@ -86,7 +86,7 @@ public final class MyExample extends ReadWriteLockable {
 }
 ```
 
-Notice that we have separate ```synchronized``` blocks for the acquire and release operations.  This is essential to allow for shared operation; only one thread can hold the monitor at a time so if we don't release it while we do our work, the lock cannot be shared and all our effort is for nothing.
+Notice that we have separate `synchronized` blocks for the acquire and release operations.  This is essential to allow for shared operation; only one thread can hold the monitor at a time so if we don't release it while we do our work, the lock cannot be shared and all our effort is for nothing.
 
 #### Usage: write lock
 
@@ -112,7 +112,7 @@ public final class MyExample extends ReadWriteLockable {
 }
 ```
 
-In this case, notice that we do all the work under a single ```synchronized``` lock; this is how our exclusive locking behavior is implemented, using Java's own exclusive locking behavior.
+In this case, notice that we do all the work under a single `synchronized` lock; this is how our exclusive locking behavior is implemented, using Java's own exclusive locking behavior.
 
 #### Usage: lock downgrading
 
@@ -146,9 +146,9 @@ public final class MyExample extends ReadWriteLockable {
 }
 ```
 
-The downgrade is <em>atomic</em>, meaning that any updates performed under the write-locked portion will be visible unchanged under the read-locked portion; in other words, there is no observable period of time where neither the read nor write lock is held in transition from the write-locked state to the read-locked state.
+The downgrade is *atomic*, meaning that any updates performed under the write-locked portion will be visible unchanged under the read-locked portion; in other words, there is no observable period of time where neither the read nor write lock is held in transition from the write-locked state to the read-locked state.
 
-Note that in the success case, the ```releaseWrite()``` does not actually serve a useful purpose: it just triggers a spurious ```notify()```, causing one waiting writer (if there are any) to wake up and immediately sleep again.  Nevertheless, it cannot be removed, otherwise an exception thrown in the write-locked work section would cause any waiting writers to remain stuck, possibly indefinitely.
+Note that in the success case, the `releaseWrite()` does not actually serve a useful purpose: it just triggers a spurious `notify()`, causing one waiting writer (if there are any) to wake up and immediately sleep again.  Nevertheless, it cannot be removed, otherwise an exception thrown in the write-locked work section would cause any waiting writers to remain stuck, possibly indefinitely.
 
 ### Variations
 
@@ -158,5 +158,5 @@ It is possible to use some bits of the counter (or a second counter) to track th
 
 ### Acknowledgements
 
-Thanks to my colleague Richard Opálka, and to ```##java``` denizen ```yawkat```, for finding bugs in the original workup.
+Thanks to my colleague Richard Opálka, and to `##java` denizen `yawkat`, for finding bugs in the original workup.
 

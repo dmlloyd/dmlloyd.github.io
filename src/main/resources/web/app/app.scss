@@ -18,6 +18,51 @@ section.series {
   }
 }
 
+.blog-list .post-title {
+  margin-top: 0;
+}
+
+.blog-list .post-content p {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.blog-list .post {
+  min-height: auto;
+}
+
+.blog-grid {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.content-prose li,
+.asciidoc-prose li {
+  margin-top: 0.125em;
+  margin-bottom: 0.125em;
+}
+
+.content-prose p,
+.asciidoc-prose p {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.content-prose,
+.asciidoc-prose {
+  ol, ul {
+    margin-top: 0.65em;
+    margin-bottom: 0.65em;
+  }
+}
+
+.article-page .page-share,
+.article-page .author {
+  display: none;
+}
+
+
 .giscus {
   padding: 10px;
 }
