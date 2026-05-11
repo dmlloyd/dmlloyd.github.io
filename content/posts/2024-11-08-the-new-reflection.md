@@ -1,5 +1,6 @@
 ---
-layout: post
+layout: post-series
+series: The new reflection
 title: The new reflection - Basics
 description: An introduction to using the advanced capabilities of member access since Java 9.
 categories: []

@@ -1,5 +1,6 @@
 ---
-layout: post
+layout: post-series
+series: The new reflection
 title: The new reflection - Advanced method handles
 description: Advanced method handle composition, control flow combinators, ConstantBootstraps, and performance.
 categories: []

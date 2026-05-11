@@ -16,7 +16,7 @@
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.5</surefire-plugin.version>
 
-        <roq.version>2.0.5</roq.version>
+        <roq.version>2.1.1</roq.version>
     </properties>
 
     <dependencyManagement>
@@ -65,6 +65,11 @@
         <dependency>
             <groupId>io.quarkiverse.roq</groupId>
             <artifactId>quarkus-roq-plugin-asciidoc</artifactId>
+            <version>${roq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.roq</groupId>
+            <artifactId>quarkus-roq-plugin-series</artifactId>
             <version>${roq.version}</version>
         </dependency>
         <dependency>
