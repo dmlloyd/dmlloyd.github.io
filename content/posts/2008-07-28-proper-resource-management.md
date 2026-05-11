@@ -21,7 +21,7 @@ author: dmlloyd
 
 The problem is basically this. Suppose you open one or more resources, and some intermediate operation the middle of the code block fails. An exception is thrown, and without proper resource management, none of your files/sockets/database statements end up getting closed. This causes the reference to hang around until at least the next GC cycle, which can cause secondary problems like file descriptor exhaustion that are tough to diagnose.
 
-To solve this problem, you don't need fancy closures or automatic resource management blocks. Java has a simple, rock\-solid way to completely avoid this issue already built into the language: finally blocks. Proper usage of this mechanism can produce code that is very safe and just as readable and elegant as the more recent "trendy" language proposals.
+To solve this problem, you don't need fancy closures or automatic resource management blocks. Java has a simple, rock-solid way to completely avoid this issue already built into the language: finally blocks. Proper usage of this mechanism can produce code that is very safe and just as readable and elegant as the more recent "trendy" language proposals.
 
 Consider this (incorrect) example which reads a couple lines from a file:
 
@@ -105,7 +105,7 @@ try {
 }
 ```
 
-That's 30 lines of code to read and print two lines from a file \- yuck! There is in fact a more elegant way to solve this problem. The first step is to restructure the code with separate `try/finally` blocks for each resource:
+That's 30 lines of code to read and print two lines from a file - yuck! There is in fact a more elegant way to solve this problem. The first step is to restructure the code with separate `try/finally` blocks for each resource:
 
 ```java
 // Safe, but really just as ugly...
@@ -148,7 +148,7 @@ try {
 }
 ```
 
-Notice two things \- first, I've switched to `final` variables to hold the resource. This really underlines the point that we do not need a `null` check anymore for each resource. That's one problem solved. Second, there's more of a structure to the resource management that emphasizes their lexical scoping. But look how huge it is \- we're actually doing worse by about 7 lines!
+Notice two things - first, I've switched to `final` variables to hold the resource. This really underlines the point that we do not need a `null` check anymore for each resource. That's one problem solved. Second, there's more of a structure to the resource management that emphasizes their lexical scoping. But look how huge it is - we're actually doing worse by about 7 lines!
 
 The final enhancement is the addition of a static method to safely clean up a resource. It looks like this:
 

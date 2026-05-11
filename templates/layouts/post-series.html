@@ -5,3 +5,28 @@ theme-layout: post
 {#include partials/roq-series /}
 
 {#insert /}
+
+{#article-end}
+<div class="giscus"></div>
+<script>
+(function() {
+  var theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  var s = document.createElement('script');
+  s.src = 'https://giscus.app/client.js';
+  s.setAttribute('data-repo', 'dmlloyd/dmlloyd.github.io');
+  s.setAttribute('data-repo-id', 'R_kgDONOW-WQ');
+  s.setAttribute('data-category', 'Posts');
+  s.setAttribute('data-category-id', 'DIC_kwDONOW-Wc4CkNfQ');
+  s.setAttribute('data-mapping', 'title');
+  s.setAttribute('data-strict', '1');
+  s.setAttribute('data-reactions-enabled', '1');
+  s.setAttribute('data-emit-metadata', '0');
+  s.setAttribute('data-input-position', 'bottom');
+  s.setAttribute('data-theme', theme);
+  s.setAttribute('data-lang', 'en');
+  s.setAttribute('crossorigin', 'anonymous');
+  s.async = true;
+  document.currentScript.parentElement.appendChild(s);
+})();
+</script>
+{/}

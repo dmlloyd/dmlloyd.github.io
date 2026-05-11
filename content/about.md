@@ -1,5 +1,5 @@
 ---
-layout: :theme/page
+layout: page
 title: About
 ---
 
